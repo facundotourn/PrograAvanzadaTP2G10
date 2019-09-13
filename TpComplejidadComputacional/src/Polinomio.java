@@ -5,9 +5,9 @@ public class Polinomio {
 
 //La posicion 0 del arreglo de coeficientes contiene el coeficiente de grado n y la posicion n contiene al termino independiente. 
 	public static void main(String[] args) {
-		double[] arrP = {1,1,1 };
+		double[] arrP = { 0,1, 1 };
 		Polinomio p = new Polinomio(arrP);
-		System.out.println(p.evaluarMSucesivas(3));
+		System.out.println(p.evaluarMSucesivas(7));
 	}
 
 	public Polinomio(double[] coeficientes) {
@@ -17,14 +17,14 @@ public class Polinomio {
 
 	double evaluarMSucesivas(double x) {
 		int i, j;
-		double res = 0, aux=0;
-		System.out.println(coeficientes.length);
+		double res = 0, aux;
 		for (i = 0; i < coeficientes.length; i++) {
-
-			for (j = 0; j < coeficientes.length - i; j++) {
-				aux = coeficientes[i] * x;
+			aux = 1;
+			for (j = 0; j < coeficientes.length - i - 1; j++) {
+				aux *= x;
 			}
-			res += aux;
+
+			res += coeficientes[i] * aux;
 		}
 		return res;
 	}
