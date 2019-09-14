@@ -10,6 +10,7 @@ public class Polinomio {
 		System.out.println(p.evaluarMSucesivas(7));
 		System.out.println(p.evaluarPow(7));
 		System.out.println(p.evaluarRecursiva(7));
+		System.out.println(p.evaluarHorner(7));
 	}
 
 	public Polinomio(double[] coeficientes) {
@@ -66,7 +67,14 @@ public class Polinomio {
 
 		return res;
 	}
-	/*
-	 * // y a sugerencia de Lucas P double evaluarHorner( double x) { ... }
-	 */
+
+	double evaluarHorner(double x) {
+		double resultado = 0;
+
+		for (int i = 0; i <= this.grado; i++) {
+			resultado = resultado * x + this.coeficientes[i];
+		}
+		return resultado;
+	}
+
 }
