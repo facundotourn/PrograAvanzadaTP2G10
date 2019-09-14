@@ -12,7 +12,7 @@ public class Polinomio {
 		System.out.println(p.evaluarRecursiva(7));
 		System.out.println(p.evaluarHorner(7));
 		System.out.println(p.evaluarRecursivaPar(7));
-		p.evaluarProgDinamica(7);
+		System.out.println(p.evaluarProgDinamica(7));
 	}
 
 	public Polinomio(double[] coeficientes) {
@@ -28,7 +28,7 @@ public class Polinomio {
 				aux *= x;
 			}
 
-			res += coeficientes[i] * aux;
+			res += this.coeficientes[i] * aux;
 		}
 		return res;
 	}
@@ -36,7 +36,7 @@ public class Polinomio {
 	double evaluarRecursiva(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++)
-			res += coeficientes[i] * potenciaRecursiva(x, this.grado - i);
+			res += this.coeficientes[i] * potenciaRecursiva(x, this.grado - i);
 
 		return res;
 	}
@@ -51,7 +51,7 @@ public class Polinomio {
 	double evaluarRecursivaPar(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++)
-			res += coeficientes[i] * potenciaRecursivaPar(x, this.grado - i);
+			res += this.coeficientes[i] * potenciaRecursivaPar(x, this.grado - i);
 
 		return res;
 	}
@@ -78,7 +78,7 @@ public class Polinomio {
 
 		// Ahora ya tengo las potencias, paso a calcular mi resultado
 		for (int i = 0; i <= this.grado; i++) {
-			res += arr[i] * coeficientes[this.grado - i];
+			res += arr[i] * this.coeficientes[this.grado - i];
 		}
 		
 		return res;
