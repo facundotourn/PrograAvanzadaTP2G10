@@ -1,26 +1,19 @@
+package com.unlam.tp2;
 
 public class Polinomio {
 	private int grado;
 	private double[] coeficientes;
 
 //La posicion 0 del arreglo de coeficientes contiene el coeficiente de grado n y la posicion n contiene al termino independiente. 
-	public static void main(String[] args) {
-		double[] arrP = { 8, 45, 6, 6, 2 };
-		Polinomio p = new Polinomio(arrP);
-		System.out.println(p.evaluarMSucesivas(7));
-		System.out.println(p.evaluarPow(7));
-		System.out.println(p.evaluarRecursiva(7));
-		System.out.println(p.evaluarHorner(7));
-		System.out.println(p.evaluarRecursivaPar(7));
-		System.out.println(p.evaluarProgDinamica(7));
-	}
-
 	public Polinomio(double[] coeficientes) {
 		this.coeficientes = coeficientes;
 		this.grado = coeficientes.length - 1;
 	}
 
-	double evaluarMSucesivas(double x) {
+	/*
+	 * Complejidad computacional: O(n^2)
+	 */
+	public double evaluarMSucesivas(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++) {
 			double aux = 1;
@@ -33,7 +26,7 @@ public class Polinomio {
 		return res;
 	}
 
-	double evaluarRecursiva(double x) {
+	public double evaluarRecursiva(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++)
 			res += this.coeficientes[i] * potenciaRecursiva(x, this.grado - i);
@@ -48,7 +41,7 @@ public class Polinomio {
 		return x * potenciaRecursiva(x, exp - 1);
 	}
 
-	double evaluarRecursivaPar(double x) {
+	public double evaluarRecursivaPar(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++)
 			res += this.coeficientes[i] * potenciaRecursivaPar(x, this.grado - i);
@@ -66,7 +59,10 @@ public class Polinomio {
 			return x * potenciaRecursivaPar(x, exp - 1);
 	}
 
-	double evaluarProgDinamica(double x) {
+	/*
+	 * Complejidad computacional: O(n)
+	 */
+	public double evaluarProgDinamica(double x) {
 		double res = 0;
 		double[] arr = new double[this.coeficientes.length];
 
@@ -80,14 +76,24 @@ public class Polinomio {
 		for (int i = 0; i <= this.grado; i++) {
 			res += arr[i] * this.coeficientes[this.grado - i];
 		}
-		
+
 		return res;
 	}
 
 	/*
-	 * double evaluarMejorada(double x) { }
+	 * Complejidad computacional: O(n)
 	 */
-	double evaluarPow(double x) {
+	public double evaluarMejorada(double x) {
+		double res = this.coeficientes[this.grado];
+		double potencia = x;
+		for (int i = this.grado - 1; i >= 0; i--) {
+			res += potencia * this.coeficientes[i];
+			potencia *= x;
+		}
+		return res;
+	}
+
+	public double evaluarPow(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++) {
 			res += this.coeficientes[i] * Math.pow(x, this.grado - i);
@@ -96,13 +102,21 @@ public class Polinomio {
 		return res;
 	}
 
-	double evaluarHorner(double x) {
+	public double evaluarHorner(double x) {
 		double resultado = 0;
 
 		for (int i = 0; i <= this.grado; i++) {
 			resultado = resultado * x + this.coeficientes[i];
 		}
 		return resultado;
+	}
+
+	public int getGrado() {
+		return grado;
+	}
+
+	public double[] getCoeficientes() {
+		return coeficientes;
 	}
 
 }
