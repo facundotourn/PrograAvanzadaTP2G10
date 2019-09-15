@@ -2,13 +2,13 @@ package com.unlam.tp2;
 
 import static java.lang.Math.*;
 
-public class BinominioNewton {
+public class BinomioNewton {
 
 	private double coefA;
 	private double coefB;
 	private int n;
 
-	public BinominioNewton(double a, double b, int n) {
+	public BinomioNewton(double a, double b, int n) {
 		this.coefA = a;
 		this.coefB = b;
 		this.n = n;
