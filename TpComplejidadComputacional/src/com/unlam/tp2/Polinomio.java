@@ -102,6 +102,7 @@ public class Polinomio {
 		return res;
 	}
 
+	//Complejidad computacional O(n)
 	public double evaluarHorner(double x) {
 		double resultado = 0;
 
