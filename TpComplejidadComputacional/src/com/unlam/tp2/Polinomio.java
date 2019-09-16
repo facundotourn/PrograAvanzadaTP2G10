@@ -1,5 +1,9 @@
 package com.unlam.tp2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Polinomio {
 	private int grado;
 	private double[] coeficientes;
@@ -8,6 +12,23 @@ public class Polinomio {
 	public Polinomio(double[] coeficientes) {
 		this.coeficientes = coeficientes;
 		this.grado = coeficientes.length - 1;
+	}
+
+	public Polinomio(String path) {
+		try {
+			File file = new File(path);
+			Scanner scan = new Scanner(file);
+
+			grado = scan.nextInt();
+			coeficientes = new double[grado + 1];
+			for (int i = 0; i < coeficientes.length; i++) {
+				coeficientes[i] = scan.nextDouble();
+			}
+
+			scan.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("No se pudo levantar el archivo");
+		}
 	}
 
 	/*
@@ -102,7 +123,7 @@ public class Polinomio {
 		return res;
 	}
 
-	//Complejidad computacional O(n)
+	// Complejidad computacional O(n)
 	public double evaluarHorner(double x) {
 		double resultado = 0;
 
