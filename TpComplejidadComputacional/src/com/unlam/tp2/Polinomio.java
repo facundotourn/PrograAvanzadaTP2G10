@@ -1,13 +1,35 @@
 package com.unlam.tp2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Polinomio {
 	private int grado;
 	private double[] coeficientes;
 
-//La posicion 0 del arreglo de coeficientes contiene el coeficiente de grado n y la posicion n contiene al termino independiente. 
+	// La posicion 0 del arreglo de coeficientes contiene el coeficiente de grado n
+	// y la posicion n contiene al termino independiente.
 	public Polinomio(double[] coeficientes) {
 		this.coeficientes = coeficientes;
 		this.grado = coeficientes.length - 1;
+	}
+
+	public Polinomio(String path) {
+		try {
+			File file = new File(path);
+			Scanner scan = new Scanner(file);
+
+			grado = scan.nextInt();
+			coeficientes = new double[grado + 1];
+			for (int i = 0; i < coeficientes.length; i++) {
+				coeficientes[i] = scan.nextDouble();
+			}
+
+			scan.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("No se pudo levantar el archivo");
+		}
 	}
 
 	/*
@@ -26,6 +48,9 @@ public class Polinomio {
 		return res;
 	}
 
+	/*
+	 * Complejidad computacional: O(n^2)
+	 */
 	public double evaluarRecursiva(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++)
@@ -41,6 +66,9 @@ public class Polinomio {
 		return x * potenciaRecursiva(x, exp - 1);
 	}
 
+	/*
+	 * Complejidad computacional: O(n*log(n))
+	 */
 	public double evaluarRecursivaPar(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++)
@@ -60,7 +88,7 @@ public class Polinomio {
 	}
 
 	/*
-	 * Complejidad computacional: O(n)
+	 * Complejidad computacional: O(n*log(n))
 	 */
 	public double evaluarProgDinamica(double x) {
 		double res = 0;
@@ -93,6 +121,9 @@ public class Polinomio {
 		return res;
 	}
 
+	/*
+	 * Complejidad computacional: O(n*log(n))
+	 */
 	public double evaluarPow(double x) {
 		double res = 0;
 		for (int i = 0; i <= this.grado; i++) {
@@ -102,7 +133,7 @@ public class Polinomio {
 		return res;
 	}
 
-	//Complejidad computacional O(n)
+	// Complejidad computacional O(n)
 	public double evaluarHorner(double x) {
 		double resultado = 0;
 
