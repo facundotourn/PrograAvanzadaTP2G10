@@ -37,4 +37,16 @@ public class BinomioTest {
 		assertEquals(27, binomio.obtenerCoeficienteK(1), 0);
 		assertEquals(27, binomio.obtenerCoeficienteK(0), 0);
 	}
+
+	@Test
+	public void Tiempos() {
+		for (int i = 0; i < 15; i++) {
+			double inicio = System.nanoTime();
+			BinomioNewton bin = new BinomioNewton(1, 3, i * 1000);
+			double[] coeficientes = bin.obtenerPolinomio();
+			double tFinal = System.nanoTime() - inicio;
+			System.out.println(i * 1000);
+		}
+
+	}
 }
