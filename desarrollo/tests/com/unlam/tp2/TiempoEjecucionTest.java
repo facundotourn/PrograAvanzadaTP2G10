@@ -1,3 +1,5 @@
+package com.unlam.tp2;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -5,9 +7,9 @@ import java.io.PrintWriter;
 import com.unlam.tp2.Polinomio;
 
 public class TiempoEjecucionTest {
-	private static int[] vec = { 1, 2, 10, 25, 50, 100, 250, 500, 1000, 1500, 2000, 1500, 2000, 2500, 5000, 10000 };
+	private static int[] vec = { 1, 2, 10, 25, 50, 100, 250, 500, 1000, 1500, 2000, 2500, 5000, 10000 };
 	private long tiemposPolinomios[][];
-	
+
 	public TiempoEjecucionTest() {
 		this.tiemposPolinomios = new long[vec.length][7];
 	}
@@ -17,7 +19,7 @@ public class TiempoEjecucionTest {
 		for (int i = 0; i < vec.length; i++) {
 			generarPolinomio(vec[i]);
 		}
-		test.medirPolinomios();
+		test.cronometrarPolinomios();
 		test.guardarPolinomios("../resultados/velocidadProcesamiento.out");
 	}
 
@@ -25,7 +27,7 @@ public class TiempoEjecucionTest {
 		try {
 			FileWriter arch = new FileWriter("../coeficientes/polinomio" + grado + ".in");
 			PrintWriter pw = new PrintWriter(arch);
-
+			pw.println(String.valueOf(grado));
 			for (int i = 0; i <= grado; i++) {
 				pw.print(String.valueOf(1) + " ");
 			}
@@ -36,10 +38,16 @@ public class TiempoEjecucionTest {
 		}
 	}
 
-	private void medirPolinomio(Polinomio poly, int fila) {
+	public void cronometrarPolinomios() {
+		for (int i = 0; i < vec.length; i++) {
+			calcularTiemposPolinomio(new Polinomio("../coeficientes/polinomio" + vec[i] + ".in"), i);
+		}
+	}
+
+	private void calcularTiemposPolinomio(Polinomio poly, int fila) {
 		long start, end;
 		int i;
-		System.out.println(poly.getGrado());
+		System.out.println("Calculando polinomio con grado " + poly.getGrado());
 
 		start = System.nanoTime();
 		for (i = 0; i < 100; i++)
@@ -84,15 +92,10 @@ public class TiempoEjecucionTest {
 		this.tiemposPolinomios[fila][6] = end - start;
 	}
 
-	public void medirPolinomios() {
-		for (int i = 0; i < vec.length; i++)
-			medirPolinomio(new Polinomio("polinomio" + vec[i] + ".in"), i);
-	}
-
 	public void guardarPolinomios(String path) throws IOException {
 		PrintWriter arch = new PrintWriter(new FileWriter(path));
-		arch.printf("%60s\n", "Tiempo en ms");
-		arch.printf("%-15s\t%-15s\t%-15s\t%-15s\t%-15s\t%-15s\t%-15s\t%-15s\n", "X", "MSucesivas", "Recursiva",
+		arch.printf("%60s\n", "Tiempo en ns");
+		arch.printf("%-15s\t%-15s\t%-15s\t%-15s\t%-15s\t%-15s\t%-15s\t%-15s\n", "Grado", "MSucesivas", "Recursiva",
 				"RecursivaPar", "PrograDinamica", "Mejorada", "Pow", "Horner");
 		for (int i = 0; i < vec.length; i++) {
 			arch.printf("%-15d\t", TiempoEjecucionTest.vec[i]);

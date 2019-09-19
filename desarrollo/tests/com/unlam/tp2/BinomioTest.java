@@ -1,3 +1,5 @@
+package com.unlam.tp2;
+
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -43,9 +45,8 @@ public class BinomioTest {
 		for (int i = 0; i < 15; i++) {
 			double inicio = System.nanoTime();
 			BinomioNewton bin = new BinomioNewton(1, 3, i * 1000);
-			double[] coeficientes = bin.obtenerPolinomio();
 			double tFinal = System.nanoTime() - inicio;
-			System.out.println(i * 1000);
+			System.out.println(inicio - tFinal);
 		}
 
 	}
