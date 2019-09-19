@@ -14,11 +14,13 @@ public class BinomioNewton {
 		this.n = n;
 	}
 
+	// Complejidad O(n)
 	public double obtenerCoeficienteK(int k) {
 		return pow(this.coefA, k) * pow(coefB, this.n - k) * combinatorio(this.n, k);
 
 	}
 
+	// Complejidad O(n^2)
 	public double[] obtenerPolinomio() {
 		double[] polinomio = new double[this.n + 1];
 
@@ -30,11 +32,12 @@ public class BinomioNewton {
 		return polinomio;
 	}
 
+	// Complejidad O(n)
 	private double combinatorio(int n, int k) {
 		return factorial(n) / (factorial(k) * factorial(n - k));
 	}
 
-	//Complejidad O(n)
+	// Complejidad O(n)
 	private double factorial(int n) {
 
 		if (n == 0 || n == 1)

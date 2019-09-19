@@ -59,6 +59,7 @@ public class Polinomio {
 		return res;
 	}
 
+	// Complejidad O(n!)
 	private double potenciaRecursiva(double x, int exp) {
 		if (exp == 0)
 			return 1;
